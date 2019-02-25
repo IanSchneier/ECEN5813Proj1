@@ -1,0 +1,35 @@
+write
+5555
+allocate
+5
+display
+write
+00001111
+write -o
+1
+00002222
+write -o
+2
+00003333
+write -o
+3
+400005555
+write -o
+4
+0000aaaa
+display
+invert
+0
+invert
+1
+invert
+2
+invert
+3
+invert
+4
+display
+free
+display
+exit
+

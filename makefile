@@ -1,13 +1,19 @@
 CC=gcc
 
-CFLAGS=-Wall -Werror
+CFLAGS=-Wall -Werror -Iinc/
 
-DIR=src
+SRC := main.c invert.c
 
-TARGET=Project1
+vpath %.c src/
+vpath %.h inc/
 
-main: src/main.o 
-	$(CC) $(CFLAGS) $(DIR)/*.c -o $(TARGET)
+OBJ := $(SRC:.c=.o)
 
+Project1: $(OBJ) 
+	$(CC) -o Project1 $(OBJ) $(CFLAGS)
 clean:
-	rm -f $(DIR)/*.o $(TARGET)
+	rm -f *.o Project1 test
+
+test: $(OBJ) 
+	$(CC) -o test $(OBJ) $(CFLAGS)
+	./test < test_script.txt

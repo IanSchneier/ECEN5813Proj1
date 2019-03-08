@@ -1,8 +1,6 @@
-#include <time.h>
-#include <stdint.h>
-#include <stdio.h>
+#include "globals.h"
 
-void invert( uint32_t *ptr, size_t len)
+void invert(void)
 {
 	size_t i;
 	clock_t t0, tf;

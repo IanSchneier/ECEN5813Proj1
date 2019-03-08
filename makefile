@@ -2,7 +2,7 @@ CC=gcc
 
 CFLAGS=-Wall -Werror -Iinc/
 
-SRC := main.c invert.c
+SRC := main.c allocate.c display.c help.c invert.c pattern.c verify.c write.c
 
 vpath %.c src/
 vpath %.h inc/

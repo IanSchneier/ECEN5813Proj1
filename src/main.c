@@ -89,7 +89,7 @@ int main (void)
                 help();
                 break;
             case 8: //Invert
-                invert();
+                invert();//TODO: add functionality to invert words over a range
                 break;
             case 15: //pattern
                 pattern();

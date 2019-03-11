@@ -25,9 +25,18 @@ void allocate( void )
 			ptr = (uint32_t*) calloc( len, sizeof(uint32_t));
 		}
 
-		len=words;
-		PRINTF("Allocated %d words at address %p\r\n",len, ptr);
-
+		if(ptr!=NULL)
+		{
+			len=words;
+			PRINTF("Allocated %d words at address %p\r\n",len, ptr);
+		}
+		else
+		{
+			len=0;
+#ifdef WARN
+			PRINTF("Memory allocation failed.\r\n");
+#endif
+		}
 	}
 #ifdef WARN
 	else
@@ -36,3 +45,4 @@ void allocate( void )
 	}
 #endif
 }
+

@@ -1,7 +1,10 @@
+#ifndef ALLOCATE_H_
+#define ALLOCATE_H_
+
+#include <stdlib.h>
+#include <stdint.h>
+
+#include "main.h"
 
 void allocate( void );
-
-uint32_t lfsr1(uint32_t seed);
-
-
-
+#endif

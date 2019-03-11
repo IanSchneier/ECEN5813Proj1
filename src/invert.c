@@ -1,22 +1,49 @@
-#include "globals.h"
+#include "invert.h"
 
 void invert(void)
 {
-	size_t i;
-	clock_t t0, tf;
-	printf("enter memory location offset value of the number to invert:\n");
-	scanf("%ld",&i);
-	if(i<len)
+	uint32_t mi;
+	uint32_t ma;
+	uint32_t t0, tf;
+	if(len>0)
 	{
-		//get initial time
-		t0=clock();
-		// perform inverting operation
-		*(ptr+i) = ~*(ptr+i);
-		// get time after operation
-		tf=clock();
-		//print how logn it took for operation to execute
-		printf("Inversion complete. Time elapsed: %f seconds\n", 
-				(double)(tf - t0) / CLOCKS_PER_SEC);
+		PRINTF("enter minimum value of range of numbers to invert:\r\n");
+			PRINTF("cmd> ");
+			if((SCANF("%d",&mi)==1)&&(mi<len))
+			{
+				PRINTF("enter maximum value of range of numbers to invert:\r\n");
+				PRINTF("cmd> ");
+				if((SCANF("%d",&ma)==1) && (ma<len) && (mi<ma))
+				{
+					//get initial time
+					t0=get_clk();
+					// perform inverting operation
+					for(size_t i=mi;i<=ma;i++) *(ptr+i) = ~*(ptr+i);
+					// get time after operation
+					tf=get_clk();
+					//print how logn it took for operation to execute
+					PRINTF("Inversion complete. Time elapsed: %d milli-seconds\r\n",
+							(tf - t0));
+				}
+#ifdef WARN
+				else
+				{
+					PRINTF("invalid memory range.\r\n");
+				}
+#endif
+
+			}
+#ifdef WARN
+			else
+			{
+				PRINTF("invalid memory location.\r\n");
+			}
+#endif
 	}
-	else printf("invalid memory location.\n");
+#ifdef WARN
+	else
+	{
+		PRINTF("Memory unitialized.\r\n");
+	}
+#endif
 }

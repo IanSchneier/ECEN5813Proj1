@@ -8,8 +8,6 @@ void verify(void)
 	uint32_t seed;
 	double t0, tf;
 
-	PRINTF("enter location:\r\n");
-
 	PRINTF("enter minimum value of range of numbers to invert:\r\n");
 	PRINTF("cmd> ");
 	if((SCANF("%d",&mi)==1)&&(mi<len))

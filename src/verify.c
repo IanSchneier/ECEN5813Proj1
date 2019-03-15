@@ -16,13 +16,13 @@ void verify(void)
 	{
 		PRINTF("enter maximum value of range of numbers to invert:\r\n");
 		PRINTF("cmd> ");
-		if((SCANF("%d",&ma)==1) && (ma<len) && (mi<ma))
+		if((SCANF("%d",&ma)==1) && (ma<len) && (mi<=ma))
 		{
 			PRINTF("enter seed value:\r\n");
 			if((SCANF("%d",&seed)==1)&&(seed<=UINT32_MAX))
 			{
 				t0=get_clk();
-				for(size_t i=mi; i<ma;i++)
+				for(size_t i=mi;i<=ma;i++)
 				{
 					val = (uint32_t)(t^seed^((uintptr_t)(ptr+i) & (uintptr_t)0xffffffff));
 					if(*(ptr+i)!=val)

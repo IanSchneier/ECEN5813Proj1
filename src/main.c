@@ -32,17 +32,13 @@
 #include <stdint.h>
 #include <string.h>
 
-#ifdef linux
-#include <stdio.h>
-#define PRINTF printf
-#define SCANF scanf
-#else
-//stuff for when on the FRDM board
+#ifndef linux
+// FRDM board specific headers that are only required for code in this file
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
 #include "board.h"
-#include "pin_mux.h"
 
+#include "pin_mux.h"
 #endif
 
 #include "main.h"
@@ -60,20 +56,20 @@
 //Ugly macro to return 0 if the position index is not one of these numbers
 #define POS_VALID(x) (x==0)? (1) : \
 		( (x==3) ? (1) : \
-				((x==4) ? (1) :\
-						((x==5) ? (1) :\
-								((x==7) ? (1) :\
-										((x==8) ? (1) :\
-												((x==15) ? (1) :\
-														((x==21) ? (1) :\
-																((x==22) ? (1) :(0)))))))))
+		( (x==4) ? (1) : \
+		( (x==5) ? (1) : \
+		( (x==7) ? (1) : \
+		( (x==8) ? (1) : \
+		((x==15) ? (1) : \
+		((x==21) ? (1) : \
+		((x==22) ? (1) : (0)))))))))
 
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 
 #ifdef linux
-clock_t t;
+uint32_t t;
 
 #else
 uint32_t t;
@@ -107,34 +103,31 @@ static const command cmd[] = {
 /*******************************************************************************
  * Code
  ******************************************************************************/
-#ifndef LINUX
+#ifndef linux
 void Init_Systick()
 {
 	//Configure to trigger interrupt every millisecond
+#ifdef WARN
 	if(SysTick_Config(CORE_CLOCK)>0)
 	{
 		PRINTF("Warning, timer initialization failed.\r\n");
 	}
+#endif
 }
 
 void SysTick_Handler()
 {
 	//increment count every millisecond
-	clk++;
-	if(clk==UINT32_MAX)
-	{
-		//resets the counter back to zero.
-		clk = 0;
-	};
+	clk = (clk + 1) & UINT32_MAX;
 }
 #endif
 
-uint32_t get_clk(void)
+double get_clk(void)
 {
-#ifdef LINUX
-	return ((1000*clock())/TICKS_PER_SEC);
+#ifdef linux
+	return (1000*clock());
 #else
-	return clk;
+	return (double)clk;
 #endif
 }
 
@@ -144,7 +137,7 @@ void sanitize_input(char *str, size_t len)
 	while(i<len)
 	{
 		// force the char to lowercase value
-		*(str+i) = ( (*(str+i)>='A') && (*(str+i) <= 'Z') ) ? (*(str+i)+32) : *(str+i);
+		*(str+i) = ((*(str+i)>='A') && (*(str+i) <= 'Z')) ? (*(str+i)+32) : *(str+i);
 		i++;
 	}
 }
@@ -159,8 +152,7 @@ int main (void)
 	char str[36];
 
 
-#if LINUX
-#else
+#ifndef linux
 	//FRDM board specific initialization functions
 	BOARD_InitPins();
 	BOARD_BootClockRUN();
@@ -170,7 +162,7 @@ int main (void)
 #endif
 
 	//set the stay variable to one to keep program running
-		stay=1;
+	stay=1;
 
 	PRINTF("Project 1:\r\n");
 	PRINTF("-----------------------------------------------------------------------\r\n");

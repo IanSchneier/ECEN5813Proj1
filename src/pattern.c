@@ -19,7 +19,7 @@ void pattern(void)
 		{
 			PRINTF("enter maximum value of range of numbers to invert:\r\n");
 			PRINTF("cmd> ");
-			if((SCANF("%d",&ma)==1) && (ma<len) && (mi<ma))
+			if((SCANF("%d",&ma)==1) && (ma<len) && (mi<=ma))
 			{
 				// perform inverting operation
 				PRINTF("enter seed value:\r\n");
@@ -29,7 +29,7 @@ void pattern(void)
 				{
 					//get initial time
 					t0=get_clk();
-					for(size_t i=mi; i<ma;i++)
+					for(size_t i=mi; i<=ma;i++)
 					{
 						*(ptr+i)=(uint32_t)(t^seed^((uintptr_t)(ptr+i)
 								& (uintptr_t) 0xffffffff));

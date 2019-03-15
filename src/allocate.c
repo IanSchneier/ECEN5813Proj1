@@ -6,8 +6,8 @@ uint32_t len;
 
 void allocate( void )
 {
-	t=clk;
-	PRINTF("%f\r\n",t);
+	t=get_clk();
+	//PRINTF("%f\r\n",t);
 	//signed length varible for size checking, caps max value at INT32_MAX
 	int32_t words;
 	PRINTF("Type the number of words you wish to allocate then press enter/return:\r\n");

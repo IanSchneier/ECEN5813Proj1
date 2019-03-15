@@ -8,7 +8,11 @@ void display(void)
         PRINTF("Length: %d.\r\n", len);
         for(size_t i=0; i<len; i++)
         {
+#ifdef linux
+        	PRINTF("%ld: %x.\r\n", i, *(ptr+i));
+#else
         	PRINTF("%d: %x.\r\n", i, *(ptr+i));
+#endif
         }
     }
 #ifdef WARN

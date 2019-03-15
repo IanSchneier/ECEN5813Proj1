@@ -4,7 +4,7 @@ void invert(void)
 {
 	uint32_t mi;
 	uint32_t ma;
-	uint32_t t0, tf;
+	double t0, tf;
 	if(len>0)
 	{
 		PRINTF("enter minimum value of range of numbers to invert:\r\n");
@@ -13,7 +13,7 @@ void invert(void)
 			{
 				PRINTF("enter maximum value of range of numbers to invert:\r\n");
 				PRINTF("cmd> ");
-				if((SCANF("%d",&ma)==1) && (ma<len) && (mi<ma))
+				if((SCANF("%d",&ma)==1) && (ma<len) && (mi<=ma))
 				{
 					//get initial time
 					t0=get_clk();
@@ -22,8 +22,8 @@ void invert(void)
 					// get time after operation
 					tf=get_clk();
 					//print how logn it took for operation to execute
-					PRINTF("Inversion complete. Time elapsed: %d milli-seconds\r\n",
-							(tf - t0));
+					PRINTF("Inversion complete. Time elapsed: %f milli-seconds\r\n",
+							(double)((tf - t0)/TICKS_PER_SEC));
 				}
 #ifdef WARN
 				else

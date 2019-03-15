@@ -7,7 +7,7 @@ void pattern(void)
 	//last value of range
 	uint32_t ma;
 	//initial and final times of operation
-	uint32_t t0, tf;
+	double t0, tf;
 	//seed value for psuedo random funciton
 	uint32_t seed;
 
@@ -38,8 +38,8 @@ void pattern(void)
 					tf=get_clk();
 					//print how lon it took for operation to execute
 					PRINTF("Pattern generation complete. Time elapsed: "
-							"%d milli-seconds\r\n",
-							(tf - t0));
+							"%f milli-seconds\r\n",
+							(double)((tf - t0)/TICKS_PER_SEC));
 				}
 #ifdef WARN
 				else

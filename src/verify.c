@@ -4,9 +4,9 @@ void verify(void)
 {
 	uint32_t mi;
 	uint32_t ma;
-	uint32_t t0, tf;
 	uint32_t val;
 	uint32_t seed;
+	double t0, tf;
 
 	PRINTF("enter location:\r\n");
 
@@ -32,8 +32,8 @@ void verify(void)
 				}
 				tf=get_clk();
 				//print how long it took for operation to execute
-				PRINTF("Pattern validation complete. Time elapsed: %d "
-						"milli-seconds\r\n",(tf - t0));
+				PRINTF("Pattern validation complete. Time elapsed: %f "
+						"milli-seconds\r\n",(double)((tf - t0)/TICKS_PER_SEC));
 			}
 #ifdef WARN
 			else

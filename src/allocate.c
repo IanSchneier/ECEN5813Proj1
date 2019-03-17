@@ -6,25 +6,25 @@ uint32_t len;
 
 void allocate( void )
 {
+	// Generate time multiple for psuedo-random function
 	t=get_clk();
-	//PRINTF("%f\r\n",t);
 	//signed length varible for size checking, caps max value at INT32_MAX
 	int32_t words;
 	PRINTF("Type the number of words you wish to allocate then press enter/return:\r\n");
 	PRINTF("cmd> ");
 	SCANF("%d", &words);
-	if( (words>0) && (words<MAX_ALLOC))
+	if( (words>0) && (words<=MAX_ALLOC))
 	{
-		len=words;
+		// Check if memory block already exists
 		if(ptr!=NULL)
 		{
-			ptr = (uint32_t*) realloc(ptr, len * sizeof(uint32_t));
+			ptr = (uint32_t*) realloc(ptr, (len * sizeof(uint32_t))+1);
 		}
 		else
 		{
-			ptr = (uint32_t*) calloc( len, sizeof(uint32_t));
+			ptr = (uint32_t*) malloc( (len * sizeof(uint32_t))+1);
 		}
-
+		// Check if memory allocation was successful
 		if(ptr!=NULL)
 		{
 			len=words;

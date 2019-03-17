@@ -148,6 +148,7 @@ void sanitize_input(char *str, size_t len)
 
 int main (void)
 {
+	uint8_t pos;
 	// stores user inputted strings
 	char str[36];
 
@@ -177,7 +178,7 @@ int main (void)
 		//force all letters of command to lowercase
 		sanitize_input(str, strlen(str));
 		// get array element position by using first letter of input command
-		uint8_t pos = (str[0]-'a');
+		pos = (str[0]-'a');
 		// confirm that there's a array element with same starting letter as
 		// one of the function names and that the command matches function name
 		if((POS_VALID(pos)) && \
